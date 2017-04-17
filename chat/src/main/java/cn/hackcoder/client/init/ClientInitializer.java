@@ -19,7 +19,7 @@ public class ClientInitializer extends ChannelInitializer<io.netty.channel.socke
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast("stringD", new StringDecoder());
         pipeline.addLast("stringC", new StringEncoder());
-        pipeline.addLast("http", new HttpClientCodec());
+//        pipeline.addLast("http", new HttpClientCodec());
         pipeline.addLast("chat", new ChatClientHandler());
     }
 }

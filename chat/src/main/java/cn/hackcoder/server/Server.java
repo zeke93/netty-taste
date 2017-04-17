@@ -51,9 +51,12 @@ public class Server {
     }
 
     public static void main(String[] args) {
-        int port = 8099;
+        int port = 8080;
         if (args != null && args.length >= 1) {
-            port = Integer.parseInt(args[0]);
+            try {
+                port = Integer.parseInt(args[0]);
+            } catch (Exception e) {
+            }
         }
 
         new Server(port).run();
