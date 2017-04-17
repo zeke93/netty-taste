@@ -1,6 +1,6 @@
 package cn.hackcoder.client;
 
-import cn.hackcoder.client.handler.TimeClientHandler;
+import cn.hackcoder.client.handler.ClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -13,7 +13,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 /**
  * Created by thinsky on 2017/4/9.
  */
-public class TimeClient {
+public class Client {
     public void connect(int port, String host) throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
@@ -22,7 +22,9 @@ public class TimeClient {
                     .option(ChannelOption.TCP_NODELAY, true)
                     .handler(new ChannelInitializer<SocketChannel>() {
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new TimeClientHandler());
+//                            ch.pipeline().addLast(new HttpRequestDecoder());
+//                            ch.pipeline().addLast(new HttpRequestEncoder());
+                            ch.pipeline().addLast(new ClientHandler());
                         }
                     });
 
@@ -34,7 +36,7 @@ public class TimeClient {
     }
 
     public static void main(String[] args) throws Exception {
-//        new TimeClient().connect(8099,"127.0.0.1");
-        System.out.println(-1 << 3);
+        new Client().connect(8099, "127.0.0.1");
+//        System.out.println(-1 << 3);
     }
 }

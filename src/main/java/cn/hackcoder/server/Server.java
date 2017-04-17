@@ -1,6 +1,6 @@
 package cn.hackcoder.server;
 
-import cn.hackcoder.server.handler.TimeServerHandler;
+import cn.hackcoder.server.handler.ServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -10,7 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 /**
  * Created by thinsky on 2017/4/9.
  */
-public class TimeServer {
+public class Server {
     public void bind(int port) throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -36,11 +36,13 @@ public class TimeServer {
     private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
 
         protected void initChannel(SocketChannel socketChannel) throws Exception {
-            socketChannel.pipeline().addLast(new TimeServerHandler());
+//            socketChannel.pipeline().addLast(new HttpRequestDecoder());
+//            socketChannel.pipeline().addLast(new HttpRequestEncoder());
+            socketChannel.pipeline().addLast(new ServerHandler());
         }
     }
 
     public static void main(String[] args) throws Exception {
-        new TimeServer().bind(8099);
+        new Server().bind(8099);
     }
 }

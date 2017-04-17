@@ -4,15 +4,19 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by thinsky on 2017/4/9.
  */
-public class TimeClientHandler extends ChannelInboundHandlerAdapter {
+public class ClientHandler extends ChannelInboundHandlerAdapter {
+
+    private static final Logger logger = LoggerFactory.getLogger(ClientHandler.class);
 
     private final ByteBuf firstMessage;
 
-    public TimeClientHandler() {
+    public ClientHandler() {
         byte[] req = "QUERY TIME ORDER".getBytes();
         firstMessage = Unpooled.buffer(req.length);
         firstMessage.writeBytes(req);
@@ -29,7 +33,7 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
         String body = new String(req);
-        System.out.println("the time server receive order: " + body);
+        logger.info("the time server receive order:{} ", body);
     }
 
     @Override
