@@ -6,7 +6,6 @@
     <artifactId>netty-taste</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>bio</module>
         <module>chat</module>
     </modules>
     <packaging>pom</packaging>
