@@ -23,7 +23,6 @@ import java.util.regex.Pattern;
 public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     private final Logger logger = LoggerFactory.getLogger(HttpFileServerHandler.class);
 
-    private HttpMethod GET = new HttpMethod("GET");
     private String url;
     private final Pattern ALLOWED_FILE_NAME = Pattern.compile("[A-Za-z0-9][-_A-Za-z0-9\\.]*");
     private final Pattern INSECURE_URI = Pattern.compile(".*[<>&\"].*");
@@ -44,6 +43,7 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
             sendError(ctx, HttpResponseStatus.METHOD_NOT_ALLOWED);
             return;
         }
+
         final String uri = request.getUri();
         final String path = sanitizeUri(uri);
         if (path == null) {
@@ -119,7 +119,6 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
     }
 
 
-
     private void sendError(ChannelHandlerContext ctx, HttpResponseStatus status) {
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status,
                 Unpooled.copiedBuffer(String.format("Failure :{} \r\n", status), CharsetUtil.UTF_8));
@@ -191,7 +190,6 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
         response.content().writeBytes(buffer);
         buffer.release();
 
-        // Close the connection as soon as the error message is sent.
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
 
     }
@@ -206,4 +204,5 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
         MimetypesFileTypeMap mimetypesFileTypeMap = new MimetypesFileTypeMap();
         response.headers().set(HttpHeaders.Names.CONTENT_TYPE, mimetypesFileTypeMap.getContentType(file.getPath()));
     }
+
 }

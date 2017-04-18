@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>filetrans</artifactId>
+    <artifactId>filetransfer</artifactId>
     <packaging>jar</packaging>
 
-    <name>filetrans</name>
+    <name>filetransfer</name>
     <url>http://maven.apache.org</url>
 
     <properties>

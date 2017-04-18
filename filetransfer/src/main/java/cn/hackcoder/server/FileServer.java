@@ -3,14 +3,11 @@ package cn.hackcoder.server;
 import cn.hackcoder.server.init.ServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
 
 /**
  * Created by linzhichao on 2017/4/17.
@@ -49,6 +46,5 @@ public class FileServer {
 
     public static void main(String[] args) {
         new FileServer(8080, "/").run();
-//        System.out.println(System.getProperty("user.dir"));
     }
 }
