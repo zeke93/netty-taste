@@ -16,6 +16,7 @@ import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.InetSocketAddress;
 import java.util.*;
@@ -93,12 +94,6 @@ public class ApiProtocol {
     }
 
 
-    public static void main(String[] args) {
-        String uri = "/api";
-        String endpoint = uri.split("\\?")[0];
-        System.out.println(endpoint);
-    }
-
     private void setIp(ChannelHandlerContext ctx, HttpRequest req) {
         String clientIP = req.headers().get("X-Forwarded-For");
         if (clientIP == null) {
@@ -174,14 +169,17 @@ public class ApiProtocol {
         if (req.method().equals(HttpMethod.POST)) {
             HttpPostRequestDecoder decoder = new HttpPostRequestDecoder(req);
             try {
-                List<InterfaceHttpData> postList = decoder.getBodyHttpDatas();
-                for (InterfaceHttpData data : postList) {
-                    List<String> values = new ArrayList<String>();
+                decoder.getBodyHttpDatas().forEach(data -> {
+                    List<String> values = Lists.newArrayList();
                     MixedAttribute value = (MixedAttribute) data;
                     value.setCharset(CharsetUtil.UTF_8);
-                    values.add(value.getValue());
+                    try {
+                        values.add(value.getValue());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     this.parameters.put(data.getName(), values);
-                }
+                });
             } catch (Exception e) {
                 logger.error(e.getMessage());
             }
@@ -197,9 +195,7 @@ public class ApiProtocol {
         if (msg instanceof HttpContent) {
             HttpContent httpContent = (HttpContent) msg;
             ByteBuf content = httpContent.content();
-            StringBuilder buf = new StringBuilder();
-            buf.append(content.toString(CharsetUtil.UTF_8));
-            this.postBody = buf.toString();
+            this.postBody = content.toString(CharsetUtil.UTF_8);
         }
     }
 

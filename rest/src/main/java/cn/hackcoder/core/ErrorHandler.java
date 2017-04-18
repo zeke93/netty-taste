@@ -1,6 +1,5 @@
 package cn.hackcoder.core;
 
-import cn.hackcoder.model.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

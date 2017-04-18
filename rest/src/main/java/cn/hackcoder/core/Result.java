@@ -1,5 +1,5 @@
 
-package cn.hackcoder.model;
+package cn.hackcoder.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
