@@ -96,18 +96,16 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
 
             @Override
             public void operationComplete(ChannelProgressiveFuture future) throws Exception {
-
-                System.err.println(future.channel() + " transfer complete");
-
+                System.out.println(future.channel() + " transfer complete");
             }
 
             @Override
             public void operationProgressed(ChannelProgressiveFuture future, long progress, long total)
                     throws Exception {
                 if (total < 0) {
-                    System.err.println(future.channel() + " transfer progress : " + progress);
+                    System.out.println(future.channel() + " transfer progress : " + progress);
                 } else {
-                    System.err.println(future.channel() + " transfer progress : " + progress + " / " + total);
+                    System.out.println(future.channel() + " transfer progress : " + progress + " / " + total);
                 }
             }
         });

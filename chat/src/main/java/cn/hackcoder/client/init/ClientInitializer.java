@@ -17,9 +17,8 @@ public class ClientInitializer extends ChannelInitializer<io.netty.channel.socke
 
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast("stringD", new StringDecoder());
-        pipeline.addLast("stringC", new StringEncoder());
-//        pipeline.addLast("http", new HttpClientCodec());
-        pipeline.addLast("chat", new ChatClientHandler());
+        pipeline.addLast(new StringDecoder());
+        pipeline.addLast(new StringEncoder());
+        pipeline.addLast(new ChatClientHandler());
     }
 }

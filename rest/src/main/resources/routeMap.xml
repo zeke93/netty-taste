@@ -8,19 +8,7 @@
     <api>
         <name>/user/:uid</name>
         <method>get</method>
-        <method>patch</method>
         <method>delete</method>
         <resource>UserResource</resource>
-    </api>
-    <api>
-        <name>/user/:uid/album/:aid</name>
-        <method>get</method>
-        <method>post</method>
-        <resource>AlbumResource</resource>
-    </api>
-    <api>
-        <name>/users</name>
-        <method>get</method>
-        <resource>UsersResource</resource>
     </api>
 </routeMap>

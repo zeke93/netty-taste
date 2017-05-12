@@ -65,7 +65,7 @@ public class Client {
 
     public static void main(String[] args) throws Exception {
         String host = "127.0.0.1";
-        int port = 8099;
+        int port = 8080;
         if (args != null && args.length >= 2) {
             host = args[0];
             port = Integer.parseInt(args[1]);

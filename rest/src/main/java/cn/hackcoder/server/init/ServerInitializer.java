@@ -15,10 +15,8 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
     public void initChannel(SocketChannel ch) {
         ChannelPipeline p = ch.pipeline();
 
-        // HttpServerCodec is a combination of HttpRequestDecoder and HttpResponseEncoder
         p.addLast(new HttpServerCodec());
 
-        // add gzip compressor for http model content
         p.addLast(new HttpContentCompressor());
 
         p.addLast(new HttpObjectAggregator(1048576));

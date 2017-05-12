@@ -4,12 +4,14 @@ import cn.hackcoder.utils.ConfigUtil;
 import cn.hackcoder.utils.JsonUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpRequest;
+import org.omg.CORBA.OBJ_ADAPTER;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * connect netty server and api resource
@@ -17,6 +19,8 @@ import java.lang.reflect.Method;
 public class ApiHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(ApiHandler.class);
+
+    private static final AtomicInteger count = new AtomicInteger();
 
     /**
      * api data I/O port
@@ -57,7 +61,7 @@ public class ApiHandler {
         Constructor constructor;
         Method method;
         Object result = null;
-
+        logger.info("count================{}", count.incrementAndGet());
         Api api = ApiRoute.apiMap.get(apiName);
         if (api == null) {
             return ErrorHandler.error(StatusCode.API_NOT_FOUND);

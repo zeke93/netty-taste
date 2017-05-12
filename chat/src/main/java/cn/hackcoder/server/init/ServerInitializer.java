@@ -11,8 +11,8 @@ import io.netty.handler.codec.string.StringEncoder;
  */
 public class ServerInitializer extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel ch) throws Exception {
-        ch.pipeline().addLast("decode", new StringDecoder());
-        ch.pipeline().addLast("encode", new StringEncoder());
-        ch.pipeline().addLast("chat", new ChatServerHandler());
+        ch.pipeline().addLast(new StringDecoder());
+        ch.pipeline().addLast(new StringEncoder());
+        ch.pipeline().addLast(new ChatServerHandler());
     }
 }
