@@ -11,4 +11,9 @@
         <method>delete</method>
         <resource>UserResource</resource>
     </api>
+    <api>
+        <name>/token/:param</name>
+        <method>get</method>
+        <resource>TokenResource</resource>
+    </api>
 </routeMap>
